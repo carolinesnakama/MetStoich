@@ -1,0 +1,83 @@
+# Biossíntese de P3HB-co-3HHx a partir de glicose e ácido hexanóico considerando também a biossíntese de biomassa
+# considera vias ED, PPP, CK, Glioxilato, anapleróticas e respiração aeróbia de coenzimas Considerando phaJ como única saída b-oxidação para PHA.
+# 
+# 1.97 0 7.14 1.6 0 4.26
+# 1.54 0.18 6.32 1.4 0.09 3.29
+#
+-ENZREV
+EMP2 EMP4 EMP5 EMP6 EMP7 EMP8 EMP9 VP6 VP7 VP8 VP9 VP10
+
+-ENZIRREV
+ED1 ED2 EMP10 CPD VP1 VP5 CK1 CK2 CK3 CK4 CK5 CK6 CK7 CK8 CGLX1 CGLX2 GLN3 AD1 AD2 P3HB OXFAD OXNAD BOXI2 BOXI3 BOXI4 BOXI5 BOXI6 BOXI7 BOXI8 BOXI9 PHAJ1 SDH PNTAB
+
+-ENZMEAS
+EMP1 BOXI1 COx R3HB PHAJ2 RCO2
+1.54 0.18 6.32 1.4 0.09 3.29
+
+-METINT [C]
+G6P [6] KDPG2 [6] NADP [0] NADPH [0] PG6 [6] PIR [3] G3P [3] BPG13 [3] PG3 [3] PG2 [3] PEP [3] AcCoA [2] Rbl5P [5] Rb5P [5] X5P [5] S7P [7] E4P [4] F6P [6] DHP [3] F16P [6] OAA [4] Cit [6] KG2 [5] IsoCit [6] SucCoA [4] Suc [4] Fum [4] Mal [4] GLX [2] FAD [0] FADH2 [0] NAD [0] NADH [0] CoASH [0] HexCoA [6] HexenCoA [6] HHexCOA [6] CHexCoA [6] ButCoA [4] ButenCoA [4] HButCoA [4] CButCoA [4] CO2 [1] O [0] 3HB [4]
+
+-METEXT [C]
+ADP [0] ATP [0] Gliex [6] Hexext [6] Oext [0] CO2ext [1] 3HBext [4] 3HHx [6]
+0 0 1 1 1 1 1 1 
+
+-CAT
+EMP1 : Gliex + ATP = G6P + ADP .
+EMP2 : G6P = F6P .
+VP1 : G6P + NADP = PG6 + NADPH .
+ED1 : PG6 = KDPG2 .
+ED2 : KDPG2 = PIR + G3P .
+EMP4 : F16P = G3P + DHP .
+EMP5 : DHP = G3P .
+EMP6 : G3P + NAD = BPG13 + NADH .
+EMP7 : BPG13 + ADP = PG3 + ATP .
+EMP8 : PG3 = PG2 .
+EMP9 : PG2 = PEP .
+EMP10 : PEP + ADP = PIR + ATP .
+CPD : PIR + NAD + CoASH = AcCoA + NADH + CO2 .
+VP5 : PG6 + NADP = NADPH + Rbl5P + CO2 .
+VP6 : Rbl5P = Rb5P .
+VP7 : Rbl5P = X5P .
+VP8 : Rb5P + X5P = S7P + G3P .
+VP9 : G3P + S7P = E4P + F6P .
+VP10 : X5P + E4P = F6P + G3P .
+CK1 : OAA + AcCoA = Cit + CoASH .
+CK2 : Cit = IsoCit .
+CK3 : IsoCit + NADP = KG2 + NADPH + CO2 .
+CK4 : KG2 + NAD + CoASH = SucCoA + NADH + CO2 .
+CK5 : SucCoA + ADP = Suc + ATP + CoASH .
+CK6 : Suc + FAD = Fum + FADH2 .
+CK7 : Fum = Mal .
+CK8 : Mal + NAD = OAA + NADH .
+CGLX1 : IsoCit = GLX + Suc .
+CGLX2 : GLX + AcCoA = Mal + CoASH .
+GLN3 : F16P = F6P .
+AD1 : PIR + CO2 + ATP = OAA + ADP .
+AD2 : OAA + ATP = PEP + ADP + CO2 .
+P3HB : 2 AcCoA + 1 NADPH = 3HB + 2 CoASH + 1 NADP .
+OXFAD : FADH2 + 2 ADP + O = FAD + 2 ATP .
+OXNAD : NADH + 3 ADP + O = NAD + 3 ATP .
+BOXI1 : Hexext + 2 ATP + CoASH = HexCoA + 2 ADP . 
+BOXI2 : HexCoA + NAD = HexenCoA + NADH . 
+BOXI3 : HexenCoA = HHexCOA .
+BOXI4 : HHexCOA + NAD = CHexCoA + NADH .
+BOXI5 : CHexCoA + CoASH = ButCoA + AcCoA .
+BOXI6 : ButCoA + NAD = ButenCoA + NADH . 
+BOXI7 : ButenCoA = HButCoA . 
+BOXI8 : HButCoA + NAD = CButCoA + NADH .
+BOXI9 : CButCoA + CoASH = 2 AcCoA .
+PHAJ1 : ButenCoA = 3HB + CoASH .
+PHAJ2 : HexenCoA = 3HHx + CoASH .
+SDH : NADPH + NAD = NADP + NADH .
+PNTAB : NADH + ATP + NADP = NAD + ADP + NADPH .
+R3HB : 3HB = 3HBext .
+RCO2 : CO2 = CO2ext . 
+COx : Oext = O .
+
+-COMP
+Gliex : 6 C + 12 H + 6 O .
+Hexext : 6 C + 12 H + 2 O .
+Oext : O .
+CO2ext : C + 2 O .
+3HBext : 4 C + 8 H + 3 O .
+3HHx : 6 C + 12 H + 3 O .
